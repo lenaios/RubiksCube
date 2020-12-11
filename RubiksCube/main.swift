@@ -15,6 +15,10 @@ var side5: [[Character]] = [["Y", "Y", "Y"], ["Y", "Y", "Y"], ["Y", "Y", "Y"]]
 var side6: [[Character]] = [["R", "R", "R"], ["R", "R", "R"], ["R", "R", "R"]]
 printCube()
 
+// 무작위 섞기를 위한 딕셔너리
+let dict: [UInt32: String] = [0: "F", 1: "F'", 2: "R", 3: "R'", 4: "U", 5: "U'",
+            6: "B", 7: "B'", 8: "L", 9: "L", 10: "D", 11: "D'"]
+
 // 조작 횟수
 var moves = 0
 
@@ -33,42 +37,64 @@ while(true) {
         let time = String(format: "%02d:%02d", min, sec) // 두자리 수로 표현
         print("경과시간: \(time)")
         print("조작갯수: \(moves)")
+        print("이용해주셔서 감사합니다. 뚜뚜뚜.")
         break
     }
     
-    // 입력값에 따라 큐브 맞추기
-    let arr = format(input: input)
-    moves += arr.count
-    for dir in arr {
-        switch dir {
-        case "F":
-            turnF()
-        case "F'":
-            reverseF()
-        case "R":
-            turnR()
-        case "R'":
-            reverseR()
-        case "U":
-            turnU()
-        case "U'":
-            reverseU()
-        case "B":
-            turnB()
-        case "B'":
-            reverseB()
-        case "L":
-            turnL()
-        case "L'":
-            reverseL()
-        case "D":
-            turnD()
-        case "D'":
-            reverseD()
-        default:
-            print("잘못 입력하셨습니다 :(")
+    if input == "Z" {
+        print("무작위로 섞기")
+        random()
+    } else {
+        // 입력값에 따라 큐브 맞추기
+        let arr = format(input: input)
+        moves += arr.count
+        for dir in arr {
+            print(dir) // 방향 출력
+            cubing(direction: dir)
+            printCube() // 결과 출력
         }
     }
+}
+
+func cubing(direction: String) {
+    switch direction {
+    case "F":
+        turnF()
+    case "F'":
+        reverseF()
+    case "R":
+        turnR()
+    case "R'":
+        reverseR()
+    case "U":
+        turnU()
+    case "U'":
+        reverseU()
+    case "B":
+        turnB()
+    case "B'":
+        reverseB()
+    case "L":
+        turnL()
+    case "L'":
+        reverseL()
+    case "D":
+        turnD()
+    case "D'":
+        reverseD()
+    default:
+        print("방향키는 F, F', R, R', U, U', B, B', L, L', D, D', Z(무작위)만 가능합니다.")
+    }
+}
+
+func random() {
+    for _ in 0..<5 { // 무작위로 5번 섞기
+        let randomNumber = arc4random_uniform(12)
+        if let randomString = dict[randomNumber] {
+            cubing(direction: randomString)
+        }
+    }
+    printCube() // 결과 출력
 }
 
 // readLine 함수 호출
@@ -97,7 +123,6 @@ func format(input: String) -> [String] { // uu'r
 }
 
 func turnF() -> Void {
-    print("F")
     let temp0 = side2[0][2]
     let temp1 = side2[1][2]
     let temp2 = side2[2][2]
@@ -117,11 +142,9 @@ func turnF() -> Void {
     side1[2][0] = temp2
     side1[2][1] = temp1
     side1[2][2] = temp0
-    printCube()
 }
 
 func turnR() {
-    print("R")
     let temp0 = side3[0][2]
     let temp1 = side3[1][2]
     let temp2 = side3[2][2]
@@ -141,11 +164,9 @@ func turnR() {
     side1[0][2] = temp0
     side1[1][2] = temp1
     side1[2][2] = temp2
-    printCube()
 }
 
 func turnU() {
-    print("U")
     let temp0 = side3[0][0]
     let temp1 = side3[0][1]
     let temp2 = side3[0][2]
@@ -165,11 +186,9 @@ func turnU() {
     side2[0][0] = temp0
     side2[0][1] = temp1
     side2[0][2] = temp2
-    printCube()
 }
 
 func turnB() {
-    print("B")
     let temp0 = side4[0][2]
     let temp1 = side4[1][2]
     let temp2 = side4[2][2]
@@ -189,11 +208,9 @@ func turnB() {
     side1[0][0] = temp0
     side1[0][1] = temp1
     side1[0][2] = temp2
-    printCube()
 }
 
 func turnL() {
-    print("L")
     let temp0 = side3[0][0]
     let temp1 = side3[1][0]
     let temp2 = side3[2][0]
@@ -213,11 +230,9 @@ func turnL() {
     side6[0][0] = temp0
     side6[1][0] = temp1
     side6[2][0] = temp2
-    printCube()
 }
 
 func turnD() {
-    print("D")
     let temp0 = side3[2][0]
     let temp1 = side3[2][1]
     let temp2 = side3[2][2]
@@ -237,11 +252,9 @@ func turnD() {
     side4[2][0] = temp0
     side4[2][1] = temp1
     side4[2][2] = temp2
-    printCube()
 }
 
 func reverseF() -> Void {
-    print("F'")
     let temp0 = side2[0][2]
     let temp1 = side2[1][2]
     let temp2 = side2[2][2]
@@ -261,11 +274,9 @@ func reverseF() -> Void {
     side6[0][0] = temp0
     side6[0][1] = temp1
     side6[0][2] = temp2
-    printCube()
 }
 
 func reverseR() {
-    print("R'")
     let temp0 = side3[0][2]
     let temp1 = side3[1][2]
     let temp2 = side3[2][2]
@@ -285,11 +296,9 @@ func reverseR() {
     side6[0][2] = temp0
     side6[1][2] = temp1
     side6[2][2] = temp2
-    printCube()
 }
 
 func reverseU() {
-    print("U'")
     let temp0 = side3[0][0]
     let temp1 = side3[0][1]
     let temp2 = side3[0][2]
@@ -309,11 +318,9 @@ func reverseU() {
     side4[0][0] = temp0
     side4[0][1] = temp1
     side4[0][2] = temp2
-    printCube()
 }
 
 func reverseB() {
-    print("B'")
     let temp0 = side4[0][2]
     let temp1 = side4[1][2]
     let temp2 = side4[2][2]
@@ -333,11 +340,9 @@ func reverseB() {
     side6[2][0] = temp2
     side6[2][1] = temp1
     side6[2][2] = temp0
-    printCube()
 }
 
 func reverseL() {
-    print("L'")
     let temp0 = side3[0][0]
     let temp1 = side3[1][0]
     let temp2 = side3[2][0]
@@ -357,11 +362,9 @@ func reverseL() {
     side1[0][0] = temp0
     side1[1][0] = temp1
     side1[2][0] = temp2
-    printCube()
 }
 
 func reverseD() {
-    print("D'")
     let temp0 = side3[2][0]
     let temp1 = side3[2][1]
     let temp2 = side3[2][2]
@@ -381,11 +384,10 @@ func reverseD() {
     side2[2][0] = temp0
     side2[2][1] = temp1
     side2[2][2] = temp2
-    printCube()
 }
 
 func printCube() -> Void {
-
+    print()
     // side1 출력
     for row in side1 {
         print("\t\t\t", terminator: " ")
@@ -428,5 +430,6 @@ func printCube() -> Void {
         }
         print()
     }
+    print()
 }
 
