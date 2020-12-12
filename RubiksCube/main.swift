@@ -28,16 +28,7 @@ let start = Date()
 
 while(true) {
     guard let input = input()?.uppercased(), input != "Q" else {
-        let end = Date()
-        
-        // 소요 시간 계산
-        let timeInterval = end.timeIntervalSince(start)
-        let min: Int = Int(timeInterval / 60)
-        let sec: Int = Int(timeInterval.truncatingRemainder(dividingBy: 60))
-        
-        let time = String(format: "%02d:%02d", min, sec) // 두자리 수로 표현
-        print("경과시간: \(time)")
-        print("조작갯수: \(moves)")
+        printPlayTimeAndMoves()
         print("이용해주셔서 감사합니다. 뚜뚜뚜.")
         break
     }
@@ -56,20 +47,24 @@ while(true) {
         }
         // check cube match
         if checkCube() {
-            let end = Date()
-            
-            // 소요 시간 계산
-            let timeInterval = end.timeIntervalSince(start)
-            let min: Int = Int(timeInterval / 60)
-            let sec: Int = Int(timeInterval.truncatingRemainder(dividingBy: 60))
-            
-            let time = String(format: "%02d:%02d", min, sec) // 두자리 수로 표현
-            print("경과시간: \(time)")
-            print("조작갯수: \(moves)")
+            printPlayTimeAndMoves()
             print("축하합니다! 프로그램을 종료합니다.")
             break
         }
     }
+}
+
+func printPlayTimeAndMoves() {
+    let end = Date()
+    
+    // 소요 시간 계산
+    let timeInterval = end.timeIntervalSince(start)
+    let min: Int = Int(timeInterval / 60)
+    let sec: Int = Int(timeInterval.truncatingRemainder(dividingBy: 60))
+    
+    let time = String(format: "%02d:%02d", min, sec) // 두자리 수로 표현
+    print("경과시간: \(time)")
+    print("조작갯수: \(moves)")
 }
 
 func checkCube() -> Bool {
