@@ -14,6 +14,7 @@ var side4: [[Character]] = [["G", "G", "G"], ["G", "G", "G"], ["G", "G", "G"]]
 var side5: [[Character]] = [["Y", "Y", "Y"], ["Y", "Y", "Y"], ["Y", "Y", "Y"]]
 var side6: [[Character]] = [["R", "R", "R"], ["R", "R", "R"], ["R", "R", "R"]]
 printCube()
+print("무작위 섞기는 Z를 입력해주세요.")
 
 // 무작위 섞기를 위한 딕셔너리
 let dict: [UInt32: String] = [0: "F", 1: "F'", 2: "R", 3: "R'", 4: "U", 5: "U'",
@@ -53,7 +54,61 @@ while(true) {
             cubing(direction: dir)
             printCube() // 결과 출력
         }
+        // check cube match
+        if checkCube() {
+            let end = Date()
+            
+            // 소요 시간 계산
+            let timeInterval = end.timeIntervalSince(start)
+            let min: Int = Int(timeInterval / 60)
+            let sec: Int = Int(timeInterval.truncatingRemainder(dividingBy: 60))
+            
+            let time = String(format: "%02d:%02d", min, sec) // 두자리 수로 표현
+            print("경과시간: \(time)")
+            print("조작갯수: \(moves)")
+            print("축하합니다! 프로그램을 종료합니다.")
+            break
+        }
     }
+}
+
+func checkCube() -> Bool {
+    for row in side1 {
+        if row != ["B", "B", "B"] {
+            return false
+        }
+    }
+    
+    for row in side2 {
+        if row != ["W", "W", "W"] {
+            return false
+        }
+    }
+    
+    for row in side3 {
+        if row != ["O", "O", "O"] {
+            return false
+        }
+    }
+    
+    for row in side4 {
+        if row != ["G", "G", "G"] {
+            return false
+        }
+    }
+    
+    for row in side5 {
+        if row != ["Y", "Y", "Y"] {
+            return false
+        }
+    }
+    
+    for row in side6 {
+        if row != ["R", "R", "R"] {
+            return false
+        }
+    }
+    return true
 }
 
 func cubing(direction: String) {
@@ -83,7 +138,8 @@ func cubing(direction: String) {
     case "D'":
         reverseD()
     default:
-        print("방향키는 F, F', R, R', U, U', B, B', L, L', D, D', Z(무작위)만 가능합니다.")
+        print("방향키는 F, F', R, R', U, U', B, B', L, L', D, D'만 가능합니다.")
+        moves -= 1 // 방향키가 아닌 경우 조작 개수에서 제외
     }
 }
 
