@@ -1,5 +1,3 @@
-
-
 # Step 3
 ## Mission
 - 참고 링크를 참고해서 루빅스 큐브를 구현한다.
@@ -149,7 +147,8 @@ func cubing(direction: String) {
     case "D'":
         reverseD()
     default:
-        print("방향키는 F, F', R, R', U, U', B, B', L, L', D, D', Z(무작위)만 가능합니다.")
+        print("방향키는 F, F', R, R', U, U', B, B', L, L', D, D'만 가능합니다.")
+        moves -= 1 // 방향키가 아닌 경우 조작 개수에서 제외
     }
 }
 ```
@@ -241,7 +240,6 @@ func checkCube() -> Bool {
 ```
 프로그램의 소요시간과 조작 개수를 출력하는 `printPlayTimeAndMoves()`를 구현합니다.  
 조작 개수는 입력 문자열의 개수를 더해서 구하고, 방향키가 아닌 값이 입력될 경우에는 개수를 차감합니다.  
-`moves += arr.count`
 ```swift
 let start = Date()
 
