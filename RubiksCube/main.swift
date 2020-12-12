@@ -104,7 +104,7 @@ func input() -> String? {
 }
 
 // 입력받은 문자열 배열로 리턴
-func format(input: String) -> [String] { // uu'r
+func format(input: String) -> [String] { // FRR'U2R
     var arr = [String]()
     for char in input {
         arr.append(String(char))
@@ -116,13 +116,17 @@ func format(input: String) -> [String] { // uu'r
                 arr[index-1] = arr[index-1] + "'" // 그 앞 인덱스에 ' 붙여주고
                 arr.remove(at: index) // ' 문자는 배열에서 삭제
             }
+        } else if str == "2" { // double turn
+            if let index = arr.firstIndex(of: str) {
+                arr[index] = arr[index-1]
+            }
         }
     }
   
     return arr
 }
 
-func turnF() -> Void {
+func turnF() {
     let temp0 = side2[0][2]
     let temp1 = side2[1][2]
     let temp2 = side2[2][2]
@@ -254,7 +258,7 @@ func turnD() {
     side4[2][2] = temp2
 }
 
-func reverseF() -> Void {
+func reverseF() {
     let temp0 = side2[0][2]
     let temp1 = side2[1][2]
     let temp2 = side2[2][2]
