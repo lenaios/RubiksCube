@@ -46,7 +46,7 @@ while(true) {
             printCube() // 결과 출력
         }
         // check cube match
-        if checkCube() {
+        if moves != 0 && checkCube() {
             printPlayTimeAndMoves()
             print("축하합니다! 프로그램을 종료합니다.")
             break
